@@ -1,0 +1,213 @@
+@import '../../../styles/variables.scss';
+
+/* Responsive overrides: Employee Calendar (Windows Clock Style) */
+
+@media (max-width: 992px) {
+  .calendar-section .container-fluid {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .calendar-card-wide .card-body,
+  .card .card-body {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .calendar-section {
+    padding: 85px 0 30px;
+    /* Reduced top padding */
+  }
+
+  .calendar-section .container-fluid {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Header compact */
+  .calendar-section .header-bar {
+    grid-template-columns: 1fr;
+    gap: .5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .calendar-section .page-title {
+    font-size: 1.3rem;
+    /* More compact title */
+    text-align: left;
+  }
+
+  .calendar-section .back-to-dashboard-emp {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  /* Compact Card for "Widget" feel */
+  .calendar-card-wide .card-body,
+  .card .card-body {
+    padding: 12px;
+    /* Minimal padding */
+  }
+
+  /* Month Navigation Compact */
+  .calendar-header {
+    margin-bottom: 10px;
+    gap: 5px;
+  }
+
+  .calendar-header .calendar-month-title {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .calendar-header .btn-nav {
+    font-size: 1rem;
+    padding: 4px;
+  }
+
+  /* Grid Layout: Compact & Square */
+  .month-grid {
+    gap: 2px;
+    /* Tight gap */
+  }
+
+  .month-grid .month-grid-header {
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .month-grid .month-grid-header .month-col-header {
+    padding: 4px 0;
+    font-size: 0.75rem;
+    background: transparent;
+    border: none;
+    color: #666;
+  }
+
+  .month-grid .month-grid-body .month-row {
+    gap: 2px;
+  }
+
+  /* Increased specificity to override dashboardCalendarEmployee.scss */
+  .month-grid .month-grid-body .month-col {
+    min-height: 42px !important;
+    /* Force small height */
+    height: 42px !important;
+    /* Force square-ish aspect */
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    /* Slight round */
+    border: 1px solid transparent;
+    /* Clean borders */
+    background-color: transparent;
+    /* Default transparent */
+    position: relative;
+  }
+
+  /* Hover effect simpler */
+  .month-grid .month-grid-body .month-col:hover {
+    transform: none !important;
+    background-color: #f0f0f0;
+    box-shadow: none !important;
+    border-color: #ccc;
+    z-index: 1;
+  }
+
+  /* SELECTION: Windows style blue border/bg */
+  .month-grid .month-grid-body .month-col.selected {
+    border: 2px solid $primary-blue !important;
+    background-color: rgba($primary-blue, 0.1) !important;
+  }
+
+  /* Date numbering centered */
+  .month-grid .month-grid-body .month-col .month-date {
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    font-weight: 500;
+    pointer-events: none;
+    /* Let click pass to cell */
+  }
+
+  /* HIDE Text Descriptions */
+  .month-grid .month-grid-body .month-col .month-hours,
+  .month-grid .month-grid-body .month-col .day-type-badge {
+    display: none !important;
+  }
+
+  /* HIDE dots if we use background colors */
+  .month-grid .month-grid-body .month-col .month-indicator {
+    display: none !important;
+  }
+
+  /* BACKGROUND COLORS for Status (Windows style) */
+  /* Work Day: Subtle Green */
+  .month-grid .month-grid-body .month-col.work-day {
+    background-color: #d1fae5 !important;
+    /* Tailwind emerald-100 */
+    color: #065f46 !important;
+  }
+
+  .month-grid .month-grid-body .month-col.work-day.selected {
+    background-color: #a7f3d0 !important;
+    /* Darker green if selected */
+    border-color: $primary-blue !important;
+  }
+
+  /* Rest Day: Subtle Orange */
+  .month-grid .month-grid-body .month-col.rest-day {
+    background-color: #ffedd5 !important;
+    /* Tailwind orange-100 */
+    color: #9a3412 !important;
+  }
+
+  .month-grid .month-grid-body .month-col.rest-day.selected {
+    background-color: #fed7aa !important;
+    border-color: $primary-blue !important;
+  }
+
+  /* Past days: dim */
+  .month-grid .month-grid-body .month-col.past:not(.selected) {
+    opacity: 0.6;
+    background-color: #f9fafb !important;
+    /* Gray-50 */
+  }
+
+  /* RESERVATION BADGE: Floating Dot (Button only) */
+  .month-grid .month-grid-body .month-col .reserva-count-badge {
+    display: block !important;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #2563eb;
+    /* Strong Blue */
+    color: transparent;
+    /* Hide number */
+    font-size: 0;
+    padding: 0;
+    border: none;
+    z-index: 5;
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  /* Week navigation buttons hidden text, simplified */
+  .btn-week-nav .btn-label {
+    display: none;
+  }
+
+  /* Details section adjustments */
+  .day-work-info-mobile {
+    font-size: 0.85rem;
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+}

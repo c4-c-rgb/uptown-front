@@ -1,0 +1,593 @@
+@import '../../../styles/variables.scss';
+
+// Variables (remapped to globals)
+$primary-color: $primary-blue;
+$secondary-color: $neutral-medium;
+$success-color: $success;
+$danger-color: $primary-red;
+$light-gray: $neutral-light;
+$border-color: #e9ecef;
+$text-color: #333;
+$text-muted: #6c757d;
+
+// Estilos generales
+// Layout base para empujar el footer al fondo
+.employee-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-section {
+  background-color: #fdfaf6; // Matches Admin Reservas
+  // Deja espacio para el header fijo (80px) + margen de seguridad adicional
+  padding: 140px 0 56px 0;
+  flex: 1 0 auto; // permite que esta sección crezca y empuje el footer
+
+  .container-fluid {
+    max-width: 1100px;
+    padding-top: 0; // el padding superior lo maneja la sección
+    position: relative;
+    z-index: 1; // asegurar que el contenido quede por encima de decoraciones
+  }
+}
+
+// Header bar profesional
+.header-bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 3rem; // Increased gap for better spacing
+  margin-bottom: 1rem;
+
+  .profile-title {
+    margin: 0;
+    text-align: center;
+    font-size: 2.5rem; // Bootstrap h1 default
+    font-weight: 500; // Bootstrap h1 default
+    color: #1B3C87; // Matched to Reservas Module Title
+    font-weight: 700;
+  }
+
+  .back-to-dashboard-emp {
+    justify-self: end; // Align to the far right of the grid cell
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.6rem 1.25rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: $primary-blue;
+    box-shadow: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.2s ease;
+    width: fit-content; // Fix for "alargado" issue
+
+    svg {
+      fill: currentColor;
+    }
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+  }
+}
+
+// End .header-bar
+
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-back {
+  color: $primary-color;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border: 1px solid $primary-color;
+  background: transparent;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s;
+
+  i {
+    margin-right: 5px;
+  }
+
+  // Standardized Action Buttons (Reservas Style)
+  &-edit {
+    background: $primary-blue !important;
+    color: #fff !important;
+    border: 0;
+    border-radius: 0.375rem; // Rectangular
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    box-shadow: none;
+    transition: transform 0.15s ease, filter 0.2s ease;
+
+    i {
+      font-size: 14px;
+    }
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($primary-blue, .25);
+    }
+  }
+
+  &-save {
+    background: $success !important;
+    color: #fff !important;
+    border: 0;
+    border-radius: 0.375rem; // Rectangular
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    box-shadow: none;
+    transition: transform 0.15s ease, filter 0.2s ease;
+
+    i {
+      font-size: 14px;
+    }
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($success, .25);
+    }
+  }
+
+  &-cancel {
+    background: $primary-red !important;
+    color: #fff !important;
+    border: 0;
+    border-radius: 0.375rem; // Rectangular
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    box-shadow: none;
+    transition: transform 0.15s ease, filter 0.2s ease;
+
+    i {
+      font-size: 14px;
+    }
+
+    &:hover {
+      background: darken($primary-red, 5%);
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($primary-red, .25);
+    }
+  }
+
+  &-upload {
+    background-color: $primary-color;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+
+// Tarjeta de perfil ampliada
+.profile-card-wide {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+    z-index: 10;
+  }
+
+  .profile-sidebar-wide {
+    padding: 30px;
+    background-color: $light-gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid $border-color;
+
+    .profile-image-wide {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid $primary-blue;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-info-sidebar {
+      margin-top: 20px;
+      text-align: center;
+
+      .profile-name-wide {
+        color: $text-color;
+        font-weight: 600;
+        margin-bottom: 5px;
+
+        .name-input-wide {
+          text-align: center;
+          font-weight: 600;
+          font-size: 1.2rem;
+        }
+      }
+
+      .profile-position-wide {
+        color: $text-muted;
+        font-size: 1rem;
+      }
+
+      // New badges layout for specialties
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .badge-pill {
+        background: #e8f1fe;
+        color: #1a73e8;
+        border: 1px solid #cfe2ff;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .profile-content-wide {
+    padding: 36px;
+
+    // Summary header with avatar and quick chips
+    .profile-summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+
+      .avatar-lg {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: $primary-blue;
+        color: #fff !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 22px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        user-select: none;
+      }
+
+      .summary-main {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .summary-name {
+          font-weight: 700;
+          font-size: 20px;
+          color: $text-color;
+        }
+
+        .chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+
+          .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 600;
+
+            i {
+              font-size: 12px;
+              color: #64748b;
+            }
+          }
+        }
+      }
+    }
+
+    .section-title-wide {
+      margin-bottom: 25px;
+
+      h4 {
+        color: $text-color;
+        font-weight: 600;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+
+      .divider-wide {
+        height: 2px;
+        background-color: $primary-color;
+        width: 60px;
+      }
+    }
+
+    .info-field-wide {
+      margin-bottom: 25px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: $text-muted;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .info-value-wide {
+        color: $text-color;
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      .form-control {
+        background-color: #ffffff; // Reservas uses white
+        border: 1px solid $border-color;
+        border-radius: 0.375rem; // Reservas 6px
+        padding: 0.75rem 1rem; // Match Reservas padding
+        min-height: 44px; // Match Reservas height
+
+        &:focus {
+          outline: none;
+          border-color: $primary-blue;
+          box-shadow: 0 0 0 4px rgba($primary-blue, 0.15); // Match Reservas focus ring
+        }
+      }
+
+      .specialties-edit-wide {
+        .hint-text {
+          color: $text-muted;
+          font-size: 0.85rem;
+          display: block;
+          margin-top: 5px;
+        }
+      }
+
+      .specialties-display-wide {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .specialty-badge-wide {
+          background-color: $primary-color;
+          color: white;
+          padding: 6px 15px;
+          border-radius: 20px;
+          font-size: 0.9rem;
+        }
+      }
+
+      .bio-textarea-wide {
+        min-height: 120px;
+      }
+
+      .bio-text-wide {
+        white-space: pre-line;
+        line-height: 1.7;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+// Tarjeta de horario ampliada
+.schedule-card-wide {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+    z-index: 10;
+  }
+
+  .card-body {
+    padding: 30px;
+  }
+
+  .schedule-table-wide {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      tr {
+        background-color: $light-gray;
+
+        th {
+          padding: 15px 20px;
+          text-align: left;
+          font-weight: 600;
+          color: $text-color;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid $border-color;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 15px 20px;
+          vertical-align: middle;
+          font-size: 0.95rem;
+
+          &.day-cell-wide {
+            font-weight: 500;
+            color: $text-color;
+            width: 25%;
+          }
+
+          .time-input-wide {
+            max-width: 250px;
+          }
+
+          .day-off-wide {
+            color: $danger-color;
+            font-style: italic;
+          }
+
+          .working-hours-wide {
+            color: $text-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 992px) {
+  .profile-sidebar-wide {
+    border-right: none !important;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .profile-content-wide {
+    padding-top: 25px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-section {
+    padding: 6rem 0 2rem 0; // Significantly reduced from 140px
+
+    .container-fluid {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  .header-bar {
+    display: flex !important; // Flex row
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: flex-start; // Align left
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem; // Add side padding if needed by container, but container has it.
+
+    .hb-spacer {
+      display: none;
+    }
+
+    .profile-title {
+      font-size: 1.75rem; // Slightly smaller
+      text-align: left;
+      margin: 0;
+      order: 2; // Title second
+    }
+
+    .back-to-dashboard-emp {
+      order: 1; // Button first (Left)
+      grid-column: auto;
+      justify-self: start;
+      width: auto; // Auto width
+      padding: 0.5rem;
+      background: transparent !important; // Transparent
+      color: #333 !important; // Dark icon
+      box-shadow: none !important;
+      border: none !important;
+
+      span {
+        display: none; // Hide "Volver" text
+      }
+
+      svg {
+        width: 28px;
+        height: 28px;
+        transform: scale(1.2); // Make icon bigger
+      }
+
+      &:hover {
+        background: #f0f0f0 !important;
+        transform: none;
+      }
+    }
+  }
+
+  .profile-actions {
+    justify-content: center; // Center action buttons
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .profile-card-wide {
+    margin-bottom: 20px;
+    box-shadow: none !important; // Simplified look
+    border: none;
+
+    .row.g-0 {
+      flex-direction: column;
+    }
+
+    .profile-sidebar-wide {
+      border-right: none;
+      border-bottom: 1px solid $border-color;
+      padding: 20px;
+    }
+
+    .profile-content-wide {
+      padding: 20px;
+    }
+  }
+}

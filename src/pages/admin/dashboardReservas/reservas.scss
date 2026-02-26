@@ -1,0 +1,473 @@
+@import '../../../styles/variables';
+
+// Paleta de colores para consistencia
+$title-color: #1B3C87;
+$text-primary: hsl(220, 10%, 20%);
+$text-muted: hsl(210, 15%, 50%);
+$border-color: hsl(220, 15%, 88%);
+$accent-primary: $primary-blue;
+$primary-white: #FFFFFF;
+$neutral-light: #F9FAFB;
+
+// Tipografía
+$font-weight-bold: 700;
+
+// Espaciado
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-5: 1.25rem;
+$spacing-6: 1.5rem;
+$spacing-7: 1.75rem; // Valor intermedio para más flexibilidad
+$spacing-8: 2rem;
+
+// Radios de borde
+$border-radius-md: 0.375rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 0.75rem; // 12px
+
+
+// Animación de entrada
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// =========================
+// Modal (Global Scope)
+// =========================
+// =========================
+// Modal (Global Scope)
+// =========================
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; // SUPER HIGH Z-INDEX TO FIX LAYERING
+    padding: $spacing-4;
+    opacity: 1;
+    transition: opacity 250ms ease;
+}
+
+.modal-contenido {
+    position: relative;
+    width: min(720px, 96vw);
+    background: $primary-white;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+    padding: $spacing-6;
+    animation: fadeInUp 0.35s ease-out both;
+    border: 1px solid $border-color;
+    transition: transform 250ms ease, opacity 250ms ease;
+
+    h2 {
+        grid-column: 1 / -1; // Span full width
+        margin: 0 0 $spacing-5 0;
+        font-size: clamp(22px, 3vw, 28px);
+        color: $title-color;
+        font-weight: $font-weight-bold;
+        letter-spacing: -0.2px;
+    }
+
+    // Grid para los campos
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $spacing-5;
+
+    .editValues {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-2;
+
+        label {
+            font-weight: $font-weight-bold;
+            color: $text-muted;
+        }
+
+        input,
+        select,
+        textarea {
+            background: $primary-white;
+            border: 1px solid $border-color;
+            color: $text-primary;
+            padding: $spacing-3 $spacing-4;
+            border-radius: $border-radius-md;
+            min-height: 44px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $accent-primary;
+                box-shadow: 0 0 0 4px rgba($accent-primary, 0.15);
+            }
+        }
+    }
+
+    // Acciones del modal ocupan todo el ancho
+    .modal-buttons {
+        grid-column: 1 / -1;
+        margin-top: $spacing-2;
+        display: flex;
+        justify-content: flex-end;
+        gap: $spacing-3;
+
+        .btn-guardar,
+        .btn-cancelar {
+            appearance: none;
+            border: none;
+            outline: none;
+            padding: $spacing-3 $spacing-5;
+            border-radius: $border-radius-md;
+            font-weight: $font-weight-bold;
+            cursor: pointer;
+            transition: transform 0.15s ease, filter 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-guardar {
+            background: $success;
+            color: $primary-white;
+
+            &:hover {
+                filter: brightness(1.05);
+                transform: translateY(-1px);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+
+        .btn-cancelar {
+            background: $primary-red;
+            color: #fff;
+            border: none;
+
+            &:hover {
+                background: darken($primary-red, 10%);
+            }
+        }
+    }
+
+    // Botón cerrar
+    .icon-close {
+        position: absolute;
+        top: $spacing-4;
+        right: $spacing-4;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid $border-color;
+        background: $primary-white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            background: $neutral-light;
+            transform: rotate(90deg);
+        }
+
+        i {
+            color: $text-muted;
+            font-size: 16px;
+        }
+    }
+}
+
+// Media Query for Modal (moved to global scope)
+@media (max-width: 576px) {
+    .modal-contenido {
+        grid-template-columns: 1fr; // una columna
+        padding: $spacing-5;
+    }
+}
+
+// Estado de cierre (se activa al añadir la clase 'closing')
+.modal-overlay.closing {
+    opacity: 0;
+}
+
+.modal-contenido.closing {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+@media (max-width: 576px) {
+    .modal-contenido {
+        padding: 1.25rem;
+        width: calc(100vw - 2rem);
+    }
+}
+
+.reservas-management {
+    padding: 90px $spacing-8 $spacing-8;
+    background: transparent; // Let FloatingBackground show through
+    min-height: 100vh;
+    animation: fadeInUp 0.5s ease-out forwards;
+
+    .center-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+
+        .header-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+            }
+        }
+    }
+
+    .header-bar {
+        // Grid styles removed for standardization
+        margin-bottom: $spacing-4;
+
+        .filters-container {
+            background-color: $primary-white;
+            padding: $spacing-5;
+            border-radius: $border-radius-lg;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: $spacing-6;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3);
+            }
+
+            display: flex;
+            gap: $spacing-5;
+            align-items: center;
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-2;
+
+                label {
+                    font-weight: $font-weight-bold;
+                    color: $text-muted;
+                }
+
+                select {
+                    padding: $spacing-3;
+                    border-radius: $border-radius-md;
+                    border: 1px solid $border-color;
+                    min-width: 200px;
+                }
+            }
+        }
+
+
+    }
+
+    // End header-bar
+
+    .table-container {
+        background-color: $primary-white;
+        border-radius: $border-radius-lg;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3); // Red shadow for consistency
+        }
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+
+        thead th {
+            background-color: $title-color;
+            color: $primary-white;
+            padding: $spacing-4;
+            text-align: left;
+            font-weight: $font-weight-bold;
+            text-transform: uppercase;
+            font-size: 14px;
+
+            &:last-child {
+                text-align: center; // Centrar encabezado Acciones
+                width: 130px; // Ancho consistente con los botones
+            }
+        }
+
+        tbody tr {
+            border-bottom: 1px solid $border-color;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            height: 64px; // Altura consistente para centrar contenido visualmente
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: #f1f5f9;
+                transform: scale(1.01);
+            }
+
+            td {
+                padding: $spacing-4;
+                vertical-align: middle !important; // Override Bootstrap
+
+                &:last-child {
+                    text-align: center; // Centrar celda Acciones por fallback
+                    width: 130px; // Asegurar ancho consistente
+                }
+
+                // Alinear visualmente el badge del estado
+                .badge {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    line-height: 1; // Evitar que el texto desplace verticalmente
+                    height: 28px; // Altura coherente visualmente
+                    padding: 0 $spacing-3; // Espaciado lateral
+                }
+            }
+        }
+    }
+
+    .actions-cell {
+        // Mantener como celda de tabla; evitar flex en el td para no romper alineación
+        display: table-cell !important;
+        text-align: center; // Alinear contenido de la celda Acciones con el resto
+        white-space: nowrap; // Evitar que los botones salten de línea
+
+        .actions-container {
+            display: inline-flex; // Contenedor interno como inline-flex para centrar sin afectar el td
+            align-items: center;
+            justify-content: center; // Centrar horizontalmente
+            gap: $spacing-3;
+            min-width: 110px; // Asegura un ancho mínimo consistente
+            margin: 0 auto; // Centrar dentro del td
+        }
+
+        // Aumentar especificidad para sobreescribir .btn-outline-*
+        .btn,
+        .btn.btn-outline-primary,
+        .btn.btn-outline-danger,
+        .btn[class*='btn-outline-'] {
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            width: 32px !important; // Ajuste fino para alinear con altura de badges
+            height: 32px !important;
+            padding: 0 !important; // Evitar padding extra de Bootstrap que descuadra
+            line-height: 0 !important; // Evitar desplazamiento vertical por line-height
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+
+            &.btn-outline-primary,
+            &.btn-primary {
+                background: $primary-blue;
+                color: #fff;
+                border: none;
+            }
+
+            &.btn-outline-danger,
+            &.btn-danger {
+                background: $primary-red;
+                color: #fff;
+                border: none;
+            }
+
+            &:hover {
+                filter: brightness(1.05);
+                transform: scale(1.06);
+            }
+
+            i {
+                display: block; // Evita baseline shift
+                line-height: 1; // Normaliza altura del ícono
+                font-size: 16px; // Proporcional al nuevo tamaño de botón
+                color: currentColor;
+            }
+        }
+    }
+
+}
+
+// Mobile Optimization for Reservas
+@media (max-width: 768px) {
+    .reservas-management {
+        padding: 2.5rem 0.5rem 1rem; // Minimal top padding
+
+        .center-wrap {
+            width: 100%;
+            max-width: none;
+        }
+
+        .header-bar {
+            margin-bottom: 1rem;
+
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem;
+                gap: 1rem;
+
+                .form-group {
+                    width: 100%;
+
+                    select,
+                    input {
+                        width: 100%; // Full width inputs
+                        min-width: 0;
+                    }
+                }
+            }
+
+            // Allow buttons to wrap or stack if added later
+            .header-buttons {
+                flex-direction: column;
+                width: 100%;
+
+                .btn {
+                    width: 100%;
+                }
+            }
+        }
+
+        .table-container {
+            border-radius: 8px; // Keep slight radius or 0 if preferred
+            margin: 0; // No negative margin to keep it clean
+            box-shadow: none; // Lighten UI
+            overflow-x: auto; // Scrollable table
+
+            .table {
+                min-width: 600px; // Force scroll if too narrow
+
+                th,
+                td {
+                    padding: 0.75rem 0.5rem; // Compact cells
+                    font-size: 0.85rem;
+                }
+
+                // Hide less important columns if needed? 
+                // For now user said "expandir informacion", so keeping columns but scrollable is better.
+            }
+        }
+    }
+}

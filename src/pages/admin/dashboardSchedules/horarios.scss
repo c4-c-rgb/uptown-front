@@ -1,0 +1,866 @@
+@import '../../../styles/variables';
+// Color de acento local para botones primarios (derivado del fondo #0d47a1)
+// ===============================================
+// Professional Dark Theme for Schedule Management
+// ===============================================
+
+// --- Color Palette (Light Theme) ---
+$bg-light: #fdfaf6; // Soft beige background
+$card-bg: #ffffff; // White cards for clean contrast
+$accent-primary: $primary-blue;
+$accent-secondary: $primary-blue;
+$text-primary: hsl(220, 10%, 20%); // Dark gray for text
+$text-muted: hsl(210, 15%, 50%); // Softer gray for muted text
+$border-color: hsl(220, 15%, 88%); // Light gray for borders
+$title-color: #1B3C87; // Specific blue for titles
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.manage-schedules {
+    background: transparent; // Let FloatingBackground show through
+    color: $text-primary;
+    width: 100%;
+    min-height: 100vh;
+    padding: 90px $spacing-4 $spacing-8; // Adjusted top padding
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    .header-bar {
+        // Grid properties removed to allow block/flex layout from component
+        margin-bottom: $spacing-4;
+
+        h1 {
+            // Removed grid placement properties
+            margin: 0;
+            text-align: center;
+        }
+
+        .hb-spacer {
+            display: none;
+        }
+
+
+    }
+
+    @media (max-width: 576px) {
+        .header-bar {
+            grid-template-columns: 1fr;
+            row-gap: $spacing-3;
+
+            h1 {
+                text-align: left;
+            }
+
+            .back-to-dashboard {
+                justify-self: start;
+            }
+        }
+    }
+
+    .card {
+        max-width: 1100px; // Wider cards for more breathing room
+        margin: 0 auto $spacing-4 auto; // Center the cards and add space below
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    h1 {
+        font-size: clamp(36px, 4vw, 48px); // Larger text
+        font-weight: $font-weight-bold;
+        text-align: center;
+        margin-bottom: $spacing-6;
+        color: $title-color;
+        letter-spacing: -1px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+
+    }
+
+    // Style for the filter dropdown's label
+    .form-group label[for='filterStylist'] {
+        color: $text-primary;
+        margin-bottom: $spacing-2;
+    }
+
+    .card {
+        background: $neutral-light;
+        padding: $spacing-8;
+        border-radius: $border-radius-lg;
+        margin-bottom: $spacing-8;
+        border: 1px solid $border-color;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3);
+        }
+
+        h2 {
+            font-size: clamp(24px, 3vw, 30px);
+            font-weight: $font-weight-bold;
+            margin-bottom: $spacing-6;
+            padding-bottom: $spacing-4;
+            border-bottom: 1px solid $border-color;
+            color: $title-color;
+        }
+    }
+
+    .form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: $spacing-6;
+
+        .form-group--full-width {
+            grid-column: 1 / -1; // Span full width
+        }
+
+        .monthly-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: $spacing-6;
+        }
+
+        // The .field-wrapper inside the grid needs to behave like a .form-group
+        .field-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                margin-bottom: $spacing-4; // More space
+                font-size: 18px; // Larger text
+                font-weight: $font-weight-bold;
+                color: $text-primary;
+            }
+
+            input,
+            select,
+            textarea {
+                background: $card-bg;
+                border: 1px solid $border-color;
+                color: $text-primary;
+                padding: $spacing-3 $spacing-4;
+                border-radius: $border-radius-md;
+                font-size: 17px; // Larger text
+                min-height: 50px;
+                transition: all 0.2s ease-in-out;
+
+                &:focus {
+                    outline: none;
+                    border-color: $accent-primary;
+                    box-shadow: 0 0 0 3px rgba($accent-primary, 0.3);
+                }
+            }
+
+            textarea {
+                min-height: 100px;
+                resize: vertical;
+            }
+        }
+
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: flex-end;
+            gap: $spacing-4;
+            margin-top: $spacing-5;
+        }
+    }
+
+    .btn {
+        padding: $spacing-3 $spacing-6;
+        border-radius: $border-radius-md;
+        border: none;
+        font-weight: $font-weight-bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &--primary {
+            background: $primary-blue;
+            color: $primary-white;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+            &:hover {
+                transform: translateY(-3px);
+                filter: brightness(1.05);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        &--secondary {
+            background: transparent;
+            color: $text-muted;
+            border: 1px solid $border-color;
+
+            &:hover {
+                background: $border-color;
+                color: $text-primary;
+            }
+        }
+    }
+
+    .week-template {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-4;
+
+        .week-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr 140px;
+            gap: $spacing-4;
+            padding: $spacing-3 $spacing-4;
+            background: $primary-blue;
+            color: #fff;
+            border-radius: $border-radius-md;
+            font-weight: $font-weight-bold;
+        }
+
+        .day-row {
+            display: grid;
+            grid-template-columns: 160px 1fr 1fr 140px;
+            gap: $spacing-4;
+            align-items: center;
+            background: darken($card-bg, 2%);
+            padding: $spacing-3 $spacing-4;
+            border: 1px solid $border-color;
+            border-radius: $border-radius-md;
+            transition: background .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+
+        .day-row:hover {
+            background: rgba($primary-blue, 0.06);
+            border-color: lighten($primary-blue, 30%);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .day-label {
+            font-weight: $font-weight-bold;
+            color: $text-primary;
+        }
+
+        .day-row input[type="time"] {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .day-row.invalid {
+            border-color: rgba(220, 53, 69, 0.45);
+            background: rgba(220, 53, 69, 0.05);
+        }
+
+        .day-row .input-invalid {
+            border-color: rgba(220, 53, 69, 0.65) !important;
+        }
+
+        .day-row .error-hint {
+            grid-column: 2 / span 2;
+            color: rgb(200, 60, 60);
+            font-size: 12px;
+        }
+
+        .rest-day {
+            display: inline-flex;
+            align-items: center;
+            gap: $spacing-2;
+            justify-self: start;
+        }
+
+        .rest-day input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: $primary-blue;
+        }
+
+        .rest-day input[type="checkbox"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba($primary-blue, 0.25);
+            border-radius: 4px;
+        }
+
+        .rest-day input[type="checkbox"]:checked+label {
+            color: $primary-blue;
+            font-weight: $font-weight-bold;
+        }
+
+        @media (max-width: 640px) {
+
+            .week-header,
+            .day-row {
+                grid-template-columns: 120px 1fr 1fr 120px;
+            }
+        }
+
+        // Mejora de usabilidad en móviles: scroll horizontal para la plantilla semanal
+        @media (max-width: 576px) {
+            & {
+                overflow-x: auto;
+            }
+
+            .week-header,
+            .day-row {
+                min-width: 520px;
+            }
+        }
+    }
+
+    .week-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: $spacing-6;
+        margin-top: $spacing-6;
+
+        &__day {
+            background: darken($bg-light, 2%);
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0; // Start hidden for animation
+
+            @for $i from 1 through 7 {
+                &:nth-child(#{$i}) {
+                    animation-delay: #{0.1 * $i}s;
+                }
+            }
+
+            padding: $spacing-4;
+            border-radius: $border-radius-md;
+            border: 1px solid $border-color;
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-4;
+        }
+
+        &__header {
+            font-weight: $font-weight-bold;
+            font-size: 18px;
+            text-align: center;
+            padding-bottom: $spacing-3;
+            border-bottom: 2px solid $accent-secondary;
+            color: $accent-secondary;
+        }
+
+        .rest-day {
+            display: flex;
+            align-items: center;
+            gap: $spacing-3;
+            margin-top: $spacing-2;
+            padding: $spacing-2;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: $border-radius-sm;
+
+            label {
+                font-size: 15px;
+                color: $text-muted;
+            }
+
+            input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                min-height: auto;
+                accent-color: $accent-primary;
+            }
+        }
+    }
+
+    .table-container {
+        margin-top: $spacing-4; // Adjusted margin
+    }
+
+    // Tabs for schedules (Próximos / Historial)
+    .schedules-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: $spacing-3;
+        flex-wrap: wrap;
+
+        .tab-btn {
+            border: 1.5px solid rgba($primary-blue, 0.6);
+            background: #ffffff;
+            color: $primary-blue;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease;
+            cursor: pointer;
+        }
+
+        .tab-btn:hover {
+            background: rgba($primary-blue, 0.06);
+            box-shadow: 0 4px 12px rgba($primary-blue, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .tab-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba($primary-blue, 0.12);
+        }
+
+        .tab-btn.active {
+            background: $primary-blue;
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 6px 16px rgba($primary-blue, 0.35);
+        }
+
+        .tab-btn .badge {
+            background: rgba(0, 0, 0, 0.08);
+            color: inherit;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+        }
+
+        .tab-btn.active .badge {
+            background: rgba(255, 255, 255, 0.28);
+            color: #fff;
+        }
+
+        @media (max-width: 576px) {
+            justify-content: center;
+
+            .tab-btn {
+                flex: 1 1 45%;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    }
+
+    .table {
+        .period-label {
+            color: $text-primary;
+            font-weight: $font-weight-bold;
+            margin-right: $spacing-2;
+        }
+
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 $spacing-4; // increase row gap
+
+        th,
+        td {
+            padding: $spacing-5;
+            text-align: left;
+            border-bottom: none;
+            vertical-align: middle;
+        }
+
+        thead tr {
+            background: $primary-blue;
+        }
+
+        th {
+            font-weight: $font-weight-bold;
+            color: $primary-white;
+            text-transform: uppercase;
+            font-size: 14px;
+            text-align: center;
+            border-top-left-radius: $border-radius-md;
+            border-top-right-radius: $border-radius-md;
+        }
+
+        &__body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__row {
+            padding: $spacing-3 $spacing-4;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            align-items: center;
+        }
+
+        tbody tr {
+            background: $card-bg;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+        }
+
+        tbody tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            background: rgba($accent-secondary, 0.06);
+        }
+    }
+
+    .actions {
+        vertical-align: middle; // Center icons vertically in the table row
+        text-align: center; // Center the content horizontally
+
+        &>button {
+            margin: 0 $spacing-2;
+        }
+
+        a,
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: $spacing-2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transition: background-color 0.2s ease, transform 0.2s ease, color .2s ease;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .edit-btn {
+            color: $accent-secondary;
+            background: rgba($accent-secondary, 0.08);
+        }
+
+        .edit-btn:hover {
+            background: rgba($accent-secondary, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .delete-btn {
+            color: #d32f2f;
+            background: rgba(211, 47, 47, 0.08);
+        }
+
+        .delete-btn:hover {
+            background: rgba(211, 47, 47, 0.14);
+            transform: translateY(-1px);
+        }
+
+        a,
+        button svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+    }
+
+    .muted {
+        color: $text-muted;
+    }
+
+
+
+    .stylist-summary {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: $spacing-2; // Reduced gap from spacing-4
+        background: $card-bg;
+        border: 1px solid $border-color;
+        border-radius: $border-radius-lg;
+        padding: $spacing-4; // Reduced padding
+        margin-bottom: $spacing-5;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        max-width: 500px; // Slightly narrower
+        margin-left: auto;
+        margin-right: auto;
+
+        .avatar {
+            width: 60px; // Smaller avatar (was 80px)
+            height: 60px;
+            font-size: 1.5rem; // Smaller font
+            border-radius: 50%;
+            background: linear-gradient(135deg, $accent-primary, $accent-secondary);
+            color: white;
+            font-weight: $font-weight-bold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            margin-bottom: $spacing-1; // Reduced margin
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-1; // Tighter spacing (was spacing-2)
+            align-items: center;
+            width: 100%;
+
+            .name {
+                font-weight: $font-weight-bold;
+                color: $text-primary;
+                font-size: 1.25rem; // Slightly smaller name
+                margin: 0;
+            }
+
+            .service-badge {
+                display: inline-block;
+                background-color: rgba($primary-blue, 0.08);
+                color: $primary-blue;
+                padding: 0.15rem 0.6rem; // More compact badge
+                border-radius: 999px;
+                font-weight: 600;
+                font-size: 0.85rem;
+                margin-bottom: $spacing-2;
+            }
+
+            .meta {
+                display: flex;
+                gap: $spacing-3;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: $spacing-2;
+                padding: 6px 12px;
+                border-radius: 999px;
+                background: $bg-light;
+                border: 1px solid $border-color;
+                color: $text-muted;
+                font-weight: 500;
+                font-size: 0.9rem;
+            }
+
+            .chip i {
+                color: $accent-secondary;
+            }
+        }
+    }
+
+    // react-datepicker integration styles
+    .react-datepicker-input {
+        // Match form input styles
+        background: $card-bg;
+        border: 1px solid $border-color;
+        color: $text-primary;
+        padding: $spacing-4 $spacing-5;
+        border-radius: $border-radius-md;
+        font-size: 18px;
+        min-height: 56px;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+            border-color: $primary-blue;
+            box-shadow: 0 0 0 3px rgba($primary-blue, 0.3);
+        }
+
+        @media (max-width: 576px) {
+            font-size: 16px;
+            padding: $spacing-3 $spacing-4;
+            min-height: 48px;
+        }
+    }
+
+    // Hide or strongly dim past (disabled) days in the calendar popup
+    .calendar--hide-past {
+        .react-datepicker {
+            border: 1px solid $border-color !important;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+            border-radius: $border-radius-lg !important;
+            overflow: hidden;
+            width: 360px; // más ancho
+            max-width: 90vw;
+        }
+
+        .react-datepicker__month-container {
+            width: 100%;
+        }
+
+        .react-datepicker__month {
+            padding: $spacing-4 $spacing-4 $spacing-5;
+        }
+
+        .react-datepicker__day-name,
+        .react-datepicker__day,
+        .react-datepicker__time-name {
+            width: 2.6rem;
+            line-height: 2.6rem;
+            margin: .2rem;
+        }
+
+        .react-datepicker__header {
+            background: linear-gradient(135deg, $primary-blue, lighten($primary-blue, 10%));
+            border-bottom: 1px solid $border-color;
+        }
+
+        .react-datepicker__current-month,
+        .react-datepicker-time__header,
+        .react-datepicker-year-header {
+            color: #fff;
+            font-weight: $font-weight-bold;
+            letter-spacing: .3px;
+        }
+
+        // Navigation arrows (prev/next)
+        .react-datepicker__navigation {
+            top: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            transition: transform .15s ease, background .15s ease;
+        }
+
+        .react-datepicker__navigation:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .react-datepicker__navigation:active {
+            transform: translateY(0);
+        }
+
+        .react-datepicker__navigation-icon::before {
+            border-color: #fff !important; // make chevrons visible
+            border-width: 3px 3px 0 0;
+            width: 10px;
+            height: 10px;
+        }
+
+        // Day cells
+        .react-datepicker__day--disabled {
+            opacity: 0.55;
+            visibility: visible;
+            pointer-events: none; // no seleccionable, pero visible
+            color: darken($text-muted, 12%) !important;
+            background: transparent !important;
+        }
+
+        // Si además es un día bloqueado por asignación, mantener marca visual
+        .react-datepicker__day--disabled.blocked-day {
+            opacity: 0.6;
+            color: $text-muted;
+        }
+
+        // Also tone down days outside of the visible month
+        .react-datepicker__day--outside-month {
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        // Today marker styled with primary accent
+        .react-datepicker__day--today {
+            border: 1px solid $accent-primary;
+            color: $accent-primary;
+            font-weight: $font-weight-bold;
+            border-radius: 50%;
+        }
+
+        // Selected day styled to match theme
+        .react-datepicker__day--selected,
+        .react-datepicker__day--keyboard-selected {
+            background-color: $primary-blue !important;
+            color: #fff !important;
+        }
+
+        .react-datepicker__day:hover {
+            background-color: rgba($accent-primary, 0.15);
+        }
+
+        // Estilo para días bloqueados (semanas ya asignadas)
+        .react-datepicker__day.blocked-day {
+            position: relative;
+            color: rgba(0, 0, 0, 0.6) !important;
+            background-color: rgba($primary-blue, 0.10) !important;
+            border-radius: 50%;
+        }
+
+        .react-datepicker__day.blocked-day::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: rgba($primary-blue, 0.6);
+            transform: rotate(-15deg);
+        }
+
+    }
+}
+
+// Mobile Optimization for Schedules
+@media (max-width: 768px) {
+    .manage-schedules {
+        padding: 2.5rem 0.5rem 1rem; // Minimal spacing
+
+        .header-bar {
+            margin-bottom: 1rem;
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .card {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            box-shadow: none; // Cleaner
+            border: 1px solid #eee;
+
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .form-group {
+                width: 100%; // Stack inputs
+
+                label {
+                    margin-bottom: 0.5rem;
+                    font-size: 1rem;
+                }
+
+                input,
+                select,
+                textarea {
+                    font-size: 1rem; // Prevent zoom
+                    padding: 0.5rem;
+                }
+            }
+
+            .monthly-details-grid {
+                grid-template-columns: 1fr; // Stack grid
+            }
+        }
+
+        .week-template {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            padding: 0.5rem;
+
+            // Ensure min width for inner content to allow scroll
+            .week-header,
+            .day-row {
+                min-width: 600px;
+            }
+        }
+    }
+}

@@ -1,0 +1,287 @@
+@import '../../../styles/variables';
+
+section {
+  .container {
+    .iconClose {
+      display: flex;
+      justify-content: center;
+
+
+
+    }
+
+    .dataTable {
+      background-color: $neutral-light;
+      border-radius: $border-radius-lg;
+      padding: $spacing-4;
+      box-shadow: $shadow-md;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3); // Red shadow for consistency
+      }
+
+      h2 {
+        color: $primary-blue;
+        font-weight: $font-weight-bold;
+        margin-bottom: $spacing-4;
+      }
+
+      .btnCreate {
+        background: $primary-blue;
+        color: white;
+        box-shadow: 0 4px 6px rgba($primary-blue, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 15px;
+        outline: none;
+        border: none;
+      }
+
+      .table {
+        th {
+          font-size: $font-size-sm;
+        }
+      }
+
+      .actions-cell {
+        display: flex;
+        justify-content: center;
+        gap: $spacing-2;
+
+        .btn {
+          width: 36px;
+          height: 36px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+
+          i {
+            margin: 0;
+          }
+        }
+      }
+
+    }
+  }
+}
+
+// Modal Edit Styles (Moved out of nested structure)
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+
+  .modal-contenido {
+    background-color: white;
+    padding: $spacing-6;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    max-width: 600px;
+    width: 90%;
+    border-top: 5px solid $primary-blue; // Add top border for consistency
+
+    h2 {
+      color: $primary-blue;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-4;
+      border-bottom: 2px solid rgba($primary-blue, 0.1);
+      padding-bottom: $spacing-3;
+      text-align: center;
+    }
+
+    .editValues {
+      margin-bottom: $spacing-4;
+
+      label {
+        margin-bottom: $spacing-2;
+        display: block;
+        font-weight: $font-weight-medium;
+        color: $text-secondary;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: $spacing-2;
+        border: 1px solid $primary-blue; // Forced blue border as requested
+        border-radius: $border-radius-md;
+
+        &:focus {
+          box-shadow: 0 0 0 3px rgba($primary-blue, 0.2);
+          outline: none;
+        }
+      }
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: $spacing-3;
+      margin-top: $spacing-6;
+
+      button {
+        padding: $spacing-2 $spacing-4;
+        min-width: 100px;
+        border-radius: 999px;
+      }
+
+      .btn-primary {
+        background-color: $primary-blue !important;
+        border: 1px solid $primary-blue !important;
+        color: white !important;
+
+        &:hover {
+          background-color: darken($primary-blue, 10%) !important;
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      // background-color: #007bff;
+      border-radius: 0px;
+
+      .header-modal {
+
+
+        .close-modal {
+          display: flex;
+          justify-content: flex-end;
+          padding: 10px;
+        }
+
+        .icon-modal-service {
+          display: flex;
+          justify-content: center;
+
+          .fa-notes-medical {
+            font-size: 8rem;
+          }
+        }
+
+        .title-modal {
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 20px;
+        }
+      }
+
+      .modal-body {
+        // padding: 20px;
+
+        // .form-control {
+        //   margin-bottom: 15px;
+        // }
+
+        // .form-label {
+        //   font-weight: bold;
+        //   margin-bottom: 5px;
+        // }
+
+        .input-group {
+          position: relative;
+          margin-bottom: 32px;
+
+          input {
+            border-radius: 0;
+            font-size: 16px;
+            color: $primary-blue;
+            width: 100%;
+            outline: none;
+            padding: 15px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid $primary-blue;
+
+            &:focus,
+            &:active {
+              outline: none;
+              border-bottom: 2px solid darken($primary-blue, 10%);
+            }
+          }
+
+          .label {
+            color: $primary-blue;
+
+            &.label {
+              position: absolute;
+              top: 16px;
+              left: 12px;
+              font-size: 16px;
+              line-height: 16px;
+              margin-left: 16px;
+              -webkit-transition: all .3s ease;
+              -o-transition: all .3s ease;
+              transition: all .3s ease;
+
+              &.active {
+                top: -12px;
+                font-size: 12px;
+                line-height: 12px;
+                color: gray;
+              }
+            }
+          }
+        }
+      }
+
+      .modal-footer {
+        .btn-create-service {
+          background: $success;
+          color: white;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          border: none;
+        }
+
+        .btn-cancel {
+          background: $primary-red;
+          color: white;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          border: none;
+        }
+      }
+    }
+  }
+
+}
+
+// Mobile Optimization for Users
+@media (max-width: 768px) {
+  section .container {
+    margin-top: 0 !important;
+    padding-top: 2.5rem !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    .dataTable {
+      padding: 1rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    .table {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+
+      th,
+      td {
+        white-space: nowrap;
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  }
+}

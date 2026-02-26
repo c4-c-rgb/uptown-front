@@ -1,0 +1,337 @@
+@import '../../../../styles/variables.scss';
+
+.content-wrap {
+  padding: 1.5rem 0 4rem 0; // Ultra high 1.5rem for PC too
+  min-height: 80vh;
+  background-color: #f8f9fa;
+
+  /* Header Bar Grid for Centering */
+  .header-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem; // Reduced from 2rem
+
+    h1 {
+      grid-column: 2;
+      margin: 0;
+      color: $primary-blue; // User requested Blue
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 800;
+      font-size: 3.5rem;
+      text-align: center;
+      margin-top: 0; // Reduced from 1rem
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .back-to-dashboard-emp {
+      grid-column: 3;
+      justify-self: end;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: $primary-blue;
+      color: white;
+      border: 1px solid $primary-blue;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border: none; // Reset inherited
+
+      &:hover {
+        background: darken($primary-blue, 10%);
+        color: white;
+        border-color: darken($primary-blue, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.2);
+      }
+    }
+  }
+
+  /* Global Button Overrides */
+  .btn {
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.6rem 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &-primary {
+      background-color: $primary-blue !important;
+      color: white !important;
+      box-shadow: 0 4px 6px rgba($primary-blue, 0.2);
+
+      &:hover {
+        background-color: darken($primary-blue, 10%) !important;
+        transform: translateY(-2px);
+      }
+    }
+
+    &-danger {
+      background-color: $primary-red !important;
+      color: white !important;
+      box-shadow: 0 4px 6px rgba($primary-red, 0.2);
+
+      &:hover {
+        background-color: darken($primary-red, 10%) !important;
+        transform: translateY(-2px);
+      }
+    }
+
+    &-sm {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  .reservas-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center; // Center tabs too
+
+    .tab-btn {
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      color: #6b7280;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: #f3f4f6;
+        color: $primary-blue;
+      }
+
+      &.active {
+        background: $primary-blue;
+        color: #ffffff;
+        border-color: $primary-blue;
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.3);
+      }
+
+      .badge {
+        font-weight: 700;
+        font-size: 0.75rem;
+        color: inherit;
+        background: rgba(255, 255, 255, 0.2) !important;
+      }
+    }
+  }
+
+  .reservation-table {
+    margin-top: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    // overflow: hidden; // Commented out to allow hover shadow visibility
+    background: white;
+    border: 1px solid #f3f4f6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+      z-index: 10;
+      position: relative;
+    }
+
+    th {
+      background-color: $primary-blue; // Changed from gray to Blue
+      border-bottom: 2px solid darken($primary-blue, 5%);
+      color: #ffffff; // Changed from gray to White
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      padding: 1rem 1.5rem;
+    }
+
+    td {
+      padding: 1.25rem 1.5rem;
+      vertical-align: middle;
+      color: #1f2937;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f9fafb;
+    }
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4em 0.8em;
+    font-size: 0.8em;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 999px;
+    text-transform: capitalize;
+
+    &.status-pending {
+      background-color: #fef3c7;
+      color: #b45309;
+    }
+
+    &.status-confirmed {
+      background-color: #d1fae5;
+      color: #047857; // Dark Green Text
+      border: 1px solid #059669; // Add border
+    }
+
+    &.status-cancelled {
+      background-color: #fee2e2;
+      color: #b91c1c; // Dark Red Text
+      border: 1px solid #dc2626; // Add border
+    }
+
+    &.status-unavailable {
+      background-color: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+  }
+
+  .no-reservas {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f3f4f6;
+    text-align: center;
+
+    i {
+      display: block;
+      margin-bottom: 1.5rem;
+      color: #9ca3af !important;
+    }
+
+    h3 {
+      color: #111827;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #6b7280;
+    }
+  }
+
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: $primary-blue;
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .content-wrap {
+    background: #ffffff !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1rem !important; // Reduced footer gap slightly as requested
+
+    .container {
+      padding: 0 1rem !important; // Side padding so it doesn't touch edges
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .header-bar {
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.5rem !important;
+      padding: 0 1rem;
+
+      .back-to-dashboard-emp {
+        order: -1; // Button first
+        margin: 0;
+        padding: 0.5rem;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        color: $primary-blue;
+        box-shadow: none;
+        font-size: 0; // Hide text
+
+        i,
+        svg {
+          font-size: 1.5rem;
+          margin: 0 !important;
+          display: block;
+        }
+
+        &:hover {
+          background: rgba($primary-blue, 0.1);
+          transform: none;
+          box-shadow: none;
+        }
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        text-align: left;
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  .reservation-table {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin-top: 2rem !important; // Added spacing from title/tabs
+    background: transparent !important;
+
+    // Compact table for mobile
+    th,
+    td {
+      padding: 0.5rem 0.5rem !important;
+      font-size: 0.8rem !important;
+      color: #111827 !important; // Force Dark Text
+      white-space: normal !important; // Allow Wrapping
+    }
+
+    th {
+      font-size: 0.75rem !important;
+      color: $primary-blue !important;
+      background: transparent !important;
+    }
+
+    // Adjust button size in table
+    .btn-sm {
+      padding: 0.2rem 0.5rem !important;
+      font-size: 0.7rem !important;
+    }
+  }
+
+  .no-reservas {
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}

@@ -1,0 +1,104 @@
+// Estilos para el módulo de notificaciones
+// Actualmente utiliza estilos globales y clases de Bootstrap/Variables
+@import '../../../styles/variables';
+
+.notificaciones-container {
+    padding: $spacing-4;
+    background: #fff;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+}
+
+.icono-campana {
+    font-size: 1.5rem;
+    color: $primary-blue;
+}
+
+.notificaciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.notificacion-card {
+    background: $neutral-light;
+    border: 1px solid rgba($primary-blue, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    i {
+        font-size: 2rem;
+        color: $primary-blue;
+        margin-bottom: 1rem;
+    }
+
+    .notificacion-titulo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $text-primary;
+        margin-bottom: 0.5rem;
+    }
+
+    .notificacion-descripcion {
+        font-size: 0.95rem;
+        color: $text-secondary;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+    }
+
+    .notificacion-boton {
+        background: transparent;
+        border: 1px solid $primary-blue;
+        color: $primary-blue;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            background: $primary-blue;
+            color: #fff;
+        }
+    }
+
+    .notificacion-detalle {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        margin-top: 0;
+        font-size: 0.9rem;
+        color: $text-muted;
+
+        &.activa {
+            max-height: 200px;
+            margin-top: 1rem;
+        }
+    }
+
+}
+
+// Mobile Optimization for Notifications
+@media (max-width: 768px) {
+    .notificaciones-container {
+        padding: 2.5rem 0.5rem 1rem;
+        background: transparent; // Clean look
+        box-shadow: none;
+    }
+
+    .notificaciones-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+}

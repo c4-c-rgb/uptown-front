@@ -1,0 +1,79 @@
+@import '../../../styles/variables';
+
+section {
+    .container {
+        .dataTable {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px; // Ensure smooth corners
+            padding: 1rem; // Ensure content doesn't touch edges if lifted
+            background: #fff; // Ensure background exists for shadow
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3); // Red shadow for consistency
+            }
+
+            .fa-circle-plus {
+                font-size: 2rem;
+                color: $primary-blue;
+                cursor: pointer;
+            }
+
+            tbody {
+                .modal-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 999;
+
+                    .modal-contenido {
+                        background-color: white;
+                        padding: 2rem;
+                        border-radius: 5px;
+
+                        .editValues {
+                            margin: 1rem 0rem;
+
+                            label {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+// Mobile Optimization for Specialties
+@media (max-width: 768px) {
+    section .container {
+        margin-top: 0 !important;
+        padding-top: 2.5rem !important;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        max-width: 100%;
+
+        .dataTable {
+            padding: 1rem 0.5rem;
+            border-radius: 8px;
+
+            // Force table scroll
+            .table-responsive,
+            table {
+                // Ensure table is scrollable if needed
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    }
+}

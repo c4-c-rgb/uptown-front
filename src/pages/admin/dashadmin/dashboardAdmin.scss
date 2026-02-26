@@ -1,0 +1,407 @@
+section {
+  padding-bottom: 0; // Eliminado padding extra de la sección
+
+  .container {
+    padding: 3rem;
+
+    .box {
+      .card {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 1rem;
+
+        i {
+          font-size: 3rem;
+
+        }
+      }
+    }
+  }
+}
+
+// Variables (paleta clara suavizada)
+$primary-blue: #2563eb; // azul de acento
+$primary-red: #dc4b4b; // rojo de acento (mínimo uso)
+$light-bg: #ccd6e0; // fondo principal igual a Employee
+$card-bg: #ffffff; // fondo de tarjetas
+$surface-bg: #f3f4f6; // superficies intermedias
+$text-dark: #111827; // texto principal oscuro
+$text-muted: #6b7280; // texto secundario
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card-hover-effect {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+
+  .card-front {
+    transform: rotateY(180deg);
+  }
+
+  .card-back {
+    transform: rotateY(0);
+  }
+}
+
+// Animations
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes float-shape {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(10px, 10px) rotate(5deg);
+  }
+
+  50% {
+    transform: translate(0, 20px) rotate(0deg);
+  }
+
+  75% {
+    transform: translate(-10px, 10px) rotate(-5deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Global Styles
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  color: $text-dark;
+  overflow-x: hidden;
+}
+
+// Dashboard Admin Specific Styles
+.dashboard-admin {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden; // Prevent horizontal scroll
+  background: $light-bg;
+  display: block !important; // Nuclear option: Standard block flow
+
+  // Background with floating shapes (Scoped)
+  .dashboard-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .floating-shape {
+    position: absolute;
+    background: rgba(17, 49, 119, 0.1);
+    border-radius: 50%;
+    width: var(--size);
+    height: var(--size);
+    left: var(--x);
+    top: var(--y);
+    animation: float-shape var(--duration) infinite ease-in-out var(--delay);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    @for $i from 1 through 15 {
+      &:nth-child(#{$i}) {
+        background: rgba(37, 99, 235, 0.04 + ($i * 0.008));
+        animation-delay: #{$i * 0.5}s;
+      }
+    }
+  }
+
+  // Dashboard Container
+  .dashboard-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0rem 1.5rem;
+    padding-top: 6rem !important; // Ajustado para block model
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    height: auto !important;
+    min-height: auto !important; // Reset min-height
+    padding-bottom: 2rem; // Espacio interno inferior
+    height: auto !important; // Asignar altura automática
+
+    // Header Styles Nested (Restored)
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 3rem;
+
+      .dashboard-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin: 0;
+        color: $text-dark;
+
+        span {
+          color: $primary-blue;
+        }
+      }
+
+      .dashboard-subtitle {
+        font-size: 1.2rem;
+        color: $text-muted;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  // Admin Grid (Renamed for isolation)
+  .admin-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 3rem !important; // Más aire entre tarjetas
+    padding: 1rem 0 4rem 0; // Mucho más espacio abajo para que el footer baje "un poco" sin pegarse al fondo
+    max-width: 100% !important;
+    margin: 0 auto;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  // Admin Card (Renamed for isolation)
+  .admin-card {
+    perspective: 1000px;
+    height: 200px; // Aumentado de 180px para que no se vean pequeñas
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+
+    // Flexbox width calc - Ajustando slightly para el gap mayor
+    width: calc((100% - 6.5rem) / 3) !important;
+    max-width: 400px; // Límite para que no se estiren demasiado
+    box-sizing: border-box !important;
+
+    grid-column: unset !important;
+    grid-row: unset !important;
+    flex: unset !important;
+
+    &.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    &:hover {
+      @include card-hover-effect;
+
+      .card-inner {
+        background: $primary-blue;
+      }
+
+      .card-front .card-icon {
+        color: #fff;
+      }
+
+      .card-front .card-title {
+        color: #fff;
+      }
+
+      .card-back {
+        background: $primary-blue !important;
+        color: #fff !important;
+
+        i {
+          color: #fff !important;
+        }
+      }
+
+      .card-front {
+        background: $primary-blue !important;
+        color: #fff !important;
+      }
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      border-radius: 20px; // Más redondeado
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+      background: $card-bg;
+      border-top: 8px solid $primary-blue;
+      overflow: hidden;
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      @include flex-center;
+      flex-direction: column;
+      padding: 2rem;
+      box-sizing: border-box;
+      transition: all 0.6s ease;
+    }
+
+    .card-front {
+      background: $card-bg;
+      z-index: 2;
+      transform: rotateY(0);
+
+      .card-icon {
+        width: 80px; // Icono más grande
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(7, 38, 104, 0.14);
+        margin-bottom: 1.5rem;
+        @include flex-center;
+        color: $primary-blue;
+        font-size: 2.2rem; // Fuente de icono más grande
+        transition: all 0.3s ease;
+      }
+
+      .card-title {
+        margin: 0;
+        font-size: 1.5rem; // Título más grande
+        color: $text-dark;
+        font-weight: 700;
+        transition: all 0.3s ease;
+      }
+    }
+
+    .card-back {
+      background: $surface-bg;
+      color: $text-dark;
+      transform: rotateY(180deg);
+      padding: 1.5rem;
+
+      span {
+        display: block;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      i {
+        font-size: 1.4rem;
+        color: $primary-blue;
+        animation: bounce 2s infinite;
+      }
+    }
+  }
+
+  // Footer styling nested
+  // Footer styling nested
+  .footerAdmin {
+    margin-top: 2rem !important; // Reducido a 2rem para subirlo más
+    position: relative;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+    flex-grow: 0 !important; // Asegurar que no crezca
+  }
+}
+
+// End .dashboard-admin scope
+
+// Responsive Media Queries (Must handle .dashboard-admin prefix or be nested)
+@media (max-width: 768px) {
+  .dashboard-admin {
+    .dashboard-container {
+      padding-top: 5rem;
+    }
+
+    .dashboard-header {
+      .dashboard-title {
+        font-size: 2rem;
+      }
+
+      .dashboard-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    .admin-grid {
+      gap: 1rem !important;
+    }
+
+    .admin-card {
+      width: calc((100% - 2rem) / 3) !important;
+      height: 180px; // Reduce height on mobile
+
+      .card-front {
+        .card-icon {
+          width: 50px;
+          height: 50px;
+          font-size: 1.3rem;
+        }
+
+        .card-title {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-admin {
+    .admin-grid {
+      gap: 1rem !important;
+    }
+
+    .admin-card {
+      width: 100% !important;
+      max-width: 100%;
+    }
+  }
+}

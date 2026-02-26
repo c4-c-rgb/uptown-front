@@ -1,0 +1,157 @@
+@import '../../styles/variables.scss';
+
+// Variables
+// Variables inherited from variables.scss
+$footer-height: 60px;
+$footer-height: 60px;
+
+// Animations
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-shape {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(5px, 5px) rotate(3deg);
+  }
+
+  50% {
+    transform: translate(0, 10px) rotate(0deg);
+  }
+
+  75% {
+    transform: translate(-5px, 5px) rotate(-3deg);
+  }
+}
+
+.employee-footer {
+  position: relative; // participate in document flow (flex layout handles bottom stickiness)
+  width: 100%;
+  box-sizing: border-box;
+  min-height: $footer-height;
+  background: $primary-blue;
+  backdrop-filter: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.12);
+  color: white;
+  z-index: 100;
+  overflow: hidden;
+  margin-top: 0;
+  height: auto; // allow content to dictate height
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  }
+
+  .footer-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+
+    .floating-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+
+      .floating-shape {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        width: var(--size);
+        height: var(--size);
+        left: var(--x);
+        top: var(--y);
+        animation: float-shape var(--duration) infinite ease-in-out var(--delay);
+        backdrop-filter: blur(1px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    min-height: 80px;
+    width: 100%;
+
+    .footer-content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      .footer-text {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        letter-spacing: 0.2px;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  // Hover effects for interactive elements
+  @media (hover: hover) {
+    .footer-link {
+      &:hover {
+        color: white;
+        text-decoration: none;
+        opacity: 1;
+      }
+    }
+  }
+
+  // Responsive styles
+  @media (max-width: 992px) {
+    min-height: 56px;
+
+    .footer-container {
+      padding: 0.75rem 1rem;
+
+      .footer-content {
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .footer-text {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

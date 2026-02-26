@@ -1,0 +1,94 @@
+// Floating Background Styles
+// Reusable animated background with floating shapes
+
+// Variables
+$light-bg: #ccd6e0;
+
+@keyframes float-shape {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(10px, 10px) rotate(5deg);
+    }
+
+    50% {
+        transform: translate(0, 20px) rotate(0deg);
+    }
+
+    75% {
+        transform: translate(-10px, 10px) rotate(-5deg);
+    }
+}
+
+// Dashboard background container
+.dashboard-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: $light-bg;
+}
+
+.floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.floating-shape {
+    position: absolute;
+    background: rgba(17, 49, 119, 0.1);
+    border-radius: 50%;
+    width: var(--size);
+    height: var(--size);
+    left: var(--x);
+    top: var(--y);
+    animation: float-shape var(--duration) infinite ease-in-out var(--delay);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    @for $i from 1 through 15 {
+        &:nth-child(#{$i}) {
+            background: rgba(37, 99, 235, 0.04 + ($i * 0.008));
+            animation-delay: #{$i * 0.5}s;
+        }
+    }
+}
+
+// Page wrapper styles for all modules to ensure content is above background
+.admin-services-page,
+.admin-reservas-page,
+.admin-stilist-page,
+.admin-users-page,
+.admin-specialties-page,
+.admin-reports-page,
+.admin-notifications-page,
+.admin-horarios-page,
+.mis-reservas-page,
+.reservation-page {
+    min-height: 100vh;
+    position: relative;
+    background: transparent;
+
+    // Ensure all content sections are above the background
+    >header,
+    >section,
+    >main,
+    >footer,
+    >div:not(.dashboard-background) {
+        position: relative;
+        z-index: 1;
+    }
+}

@@ -1,0 +1,261 @@
+@import '../../../../styles/variables.scss';
+
+/* Wrapper for specificity */
+.step1-service-stylist {
+
+  /* Basado en el diseño que me pasaste, pero prefixeado a .service-card para no romper otras .card */
+  .service-card {
+    width: 100%;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+    transition: .3s;
+    margin: 0 auto;
+    // overflow: hidden; // Commented out to allow hover shadow visibility
+    position: relative;
+    cursor: pointer;
+    height: 100%;
+    // Added Blue Border by default as requested (Thicker and more visible)
+    border: 2px solid rgba($primary-blue, 0.6);
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      transform: translateY(-5px);
+      // Stronger border on hover
+      border-color: $primary-blue;
+      box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+      z-index: 100;
+    }
+
+    &.selected {
+      // Even stronger on selection
+      border: 2px solid $primary-blue;
+      background-color: rgba($primary-blue, 0.03); // Slight blue tint
+      box-shadow: 0 8px 22px rgba($primary-blue, 0.25);
+    }
+
+    /* badge */
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(to right, $primary-red 0%, lighten($primary-red, 10%) 44%, darken($primary-red, 5%) 100%);
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+      z-index: 10;
+    }
+
+    /* image area */
+    .tilt {
+      overflow: hidden;
+    }
+
+    .img {
+      // Reduced height to fix "too tall" look
+      height: 160px;
+      overflow: hidden;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .5s;
+        display: block;
+      }
+    }
+
+    &:hover .img img {
+      transform: scale(1.05);
+    }
+
+    /* info */
+    .info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cat {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #71717A;
+      margin-bottom: 5px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #18181B;
+      margin: 0 0 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .desc {
+      font-size: 13px;
+      color: #52525B;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .feats {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .feat {
+      font-size: 10px;
+      background: #F4F4F5;
+      color: #71717A;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    /* bottom */
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+
+    .price {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .old {
+      font-size: 13px;
+      text-decoration: line-through;
+      color: #A1A1AA;
+      margin-bottom: 2px;
+    }
+
+    .new {
+      font-size: 20px;
+      font-weight: 700;
+      color: #18181B;
+    }
+
+    /* button */
+    .btn {
+      background: linear-gradient(45deg, $primary-blue, darken($primary-blue, 10%));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .3s;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+      position: relative;
+
+      &:hover {
+        background: linear-gradient(45deg, darken($primary-blue, 5%), darken($primary-blue, 15%));
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+
+        .icon {
+          transform: rotate(-10deg) scale(1.1);
+        }
+
+        &:before {
+          left: 100%;
+        }
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .07), transparent);
+        transition: .5s;
+      }
+    }
+
+    .icon {
+      transition: transform .3s;
+    }
+
+    /* meta */
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #F4F4F5;
+      padding-top: 12px;
+      gap: 10px;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .rcount {
+      margin-left: 6px;
+      font-size: 11px;
+      color: #71717A;
+    }
+
+    .stock {
+      font-size: 11px;
+      font-weight: 600;
+      color: #22C55E;
+    }
+  }
+
+  /* responsive adjustments */
+  @media (max-width: 768px) {
+    .service-card .img {
+      height: 180px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .service-card {
+      .img {
+        height: 160px;
+      }
+
+      .title {
+        font-size: 16px;
+      }
+
+      .bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

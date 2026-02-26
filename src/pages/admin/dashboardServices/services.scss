@@ -1,0 +1,163 @@
+@import '../../../styles/variables';
+
+
+
+// Force button colors for this page
+.edit-services,
+.modal {
+  .btn-primary {
+    background-color: $primary-blue !important;
+    border-color: $primary-blue !important;
+    color: white !important;
+
+    &:hover {
+      background-color: darken($primary-blue, 10%) !important;
+      border-color: darken($primary-blue, 10%) !important;
+    }
+  }
+}
+
+// Fix for modal appearing under other elements
+.modal.modal-overlay {
+  position: fixed !important; // Force fixed positioning relative to viewport
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; // Cover full viewport height
+  z-index: 10500 !important; // High z-index to ensure it's on top
+  background-color: rgba(0, 0, 0, 0.5); // Semi-transparent backdrop
+  overflow-y: auto; // Allow scrolling within the modal if content is long
+  display: block; // Ensure it's not hidden
+}
+
+.dataCards {
+  background-color: #F9FAFB;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.container {
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 10px; // Add padding to grid to prevent clipping at edges
+
+  .card-service {
+    background: #fff;
+    border: 2px solid rgba($primary-blue, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative; // Ensure z-index works
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: $primary-blue;
+      box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3);
+      z-index: 100; // High z-index
+    }
+
+    // Remove overflow hidden which clips the shadow
+    // overflow: hidden;
+
+    // card-img-top styles moved inside
+    .card-img-top {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-top-left-radius: 14px; // Internal radius to match card
+      border-top-right-radius: 14px;
+    }
+
+    .card-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #222;
+      }
+
+      .card-text {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin: 4px 0;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+
+        .btn-edit {
+          background: $primary-blue;
+          color: #fff;
+          padding: 6px 12px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.2s;
+
+          &:hover {
+            background: darken($primary-blue, 10%);
+          }
+        }
+
+        .btn-delete {
+          background: $primary-red;
+          color: #fff;
+          padding: 6px 12px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.2s;
+
+          &:hover {
+            background: darken($primary-red, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Responsive */
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 0 !important;
+    margin-bottom: 2rem !important;
+    padding-top: 2.5rem !important; // Minimal header clearance
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+
+  .service-grid {
+    padding: 0; // Remove extra padding
+    gap: 1rem;
+
+    .card-service {
+      width: 100%;
+
+      .card-img-top {
+        height: 150px;
+      }
+    }
+  }
+}

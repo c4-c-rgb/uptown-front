@@ -1,0 +1,1181 @@
+@import '../../../styles/variables.scss';
+
+// dashboardCalendarEmployee.scss
+.calendar-section {
+    background-color: #fdfaf6; // igual a admin
+    min-height: calc(100vh - 120px);
+    padding: 140px 0 56px; // evitar solapado con header fijo y dar aire al footer
+
+    // Centrar y limitar ancho en pantallas grandes
+    .container-fluid {
+        max-width: 1920px; // aún más ancho para dar aire en desktop grande
+        margin: 0 auto;
+    }
+
+    // Header unificado (centrado + back pill)
+    .header-bar {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 50; // Ensure header is above calendar grid
+    }
+
+    .page-title {
+        margin: 0;
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700; // Bold like Admin
+        color: #1B3C87; // Matches $title-color in Reservas
+    }
+
+    .back-to-dashboard-emp {
+        justify-self: end;
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        padding: 0.6rem 1.25rem; // Match Reservas button padding
+        border: none;
+        border-radius: 0.375rem; // Rectangular (6px) like Reservas
+        background: $primary-blue;
+        box-shadow: none; // Remove heavy shadow
+        cursor: pointer;
+        transition: transform 0.15s ease, filter 0.2s ease, background 0.2s ease;
+
+        svg {
+            fill: currentColor;
+        }
+
+        &:hover {
+            filter: brightness(1.05); // Match Reservas hover
+            transform: translateY(-1px);
+            background: $primary-blue; // Rely on filter or darken
+            box-shadow: none;
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    /* Botones de navegación de semana menos relevantes */
+    .btn-week-nav {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: $primary-blue;
+        color: #fff;
+        border: 0;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+        transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+
+        i {
+            opacity: 0.95;
+        }
+
+        &:hover {
+            background: darken($primary-blue, 5%);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, .18);
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        /* En pantallas pequeñas: icon-only, mayor área táctil */
+        @media (max-width: 576px) {
+            .btn-label {
+                display: none;
+            }
+
+            padding: 8px 10px;
+            /* mejor área táctil */
+            font-size: 0.95rem;
+        }
+    }
+}
+
+.calendar-card-wide,
+.card {
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e5e7eb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+        z-index: 10;
+    }
+
+    .card-body {
+        padding: 56px;
+        /* extra aire en las cards */
+    }
+}
+
+.calendar-title {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.5rem; // más compacto
+}
+
+/* Título del rango semanal más sutil */
+.week-range-title {
+    font-size: 1rem;
+    /* más pequeño que h4 por defecto */
+    font-weight: 500;
+    color: #374151;
+    /* gris oscuro neutro */
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .btn-nav {
+        background: transparent;
+        border: none;
+        color: #4a76a8;
+        font-size: 1.2rem;
+        padding: 5px 15px;
+
+        &:hover {
+            color: #3a5f8a;
+        }
+
+        /* Guía sutil de alineación por columna (borde izquierdo) */
+        .weekly-col-header:not(:first-child) {
+            border-left: 2px solid rgba(0, 0, 0, .03);
+        }
+    }
+
+    .calendar-month-title {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 600;
+    color: #4a76a8;
+    margin-bottom: 6px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eaeaea;
+
+    .weekday {
+        padding: 5px;
+    }
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px; // más compacto
+
+    // Responsivo: ajustar columnas por tamaño
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (max-width: 992px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Mobile specific overrides for Calendar Section
+@media (max-width: 768px) {
+    .calendar-section {
+        padding: 90px 0 1rem; // Compact padding for widget feel
+
+        .container-fluid {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .header-bar {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+
+            .page-title {
+                font-size: 1.3rem;
+                margin: 0;
+                order: 2;
+                text-align: left;
+            }
+
+            .back-to-dashboard-emp {
+                order: 1;
+                width: auto;
+                padding: 0.5rem;
+                background: transparent !important;
+                color: #333 !important;
+                border: none;
+                box-shadow: none !important;
+
+                span {
+                    display: none; // Icon only
+                }
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                    transform: scale(1.1);
+                }
+
+                &:hover {
+                    background: #f0f0f0 !important;
+                    transform: none;
+                }
+            }
+        }
+
+        .calendar-header {
+            // Month navigation
+            flex-direction: row; // Keep row
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+
+            .calendar-month-title {
+                font-size: 1.1rem; // Smaller month title
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                order: -1;
+            }
+
+            .btn-nav {
+                font-size: 1.2rem;
+                padding: 5px;
+            }
+        }
+    }
+
+    // Weekday headers smaller
+    .month-grid .month-grid-header {
+        gap: 2px;
+
+        .month-col-header {
+            font-size: 0.7rem; // Tiny weekdays
+            padding: 4px;
+            border-radius: 4px;
+        }
+    }
+
+    // Day cells compact "just numbers"
+    .month-grid .month-grid-body {
+        .month-row {
+            gap: 2px;
+        }
+
+        .month-col {
+            min-height: 50px; // Much smaller
+            padding: 4px; // Minimal padding
+            border-radius: 6px;
+
+            .month-date {
+                font-size: 0.85rem;
+                margin-bottom: 0;
+                text-align: center; // Center number
+            }
+
+            /* Hide extras in grid view if too small, or make tiny dots */
+            .month-hours,
+            .reserva-count-badge {
+                display: none; // Hide details in monthly view for cleanness
+            }
+
+            // Show simple dot if has event?
+            &.reserved::after {
+                content: '';
+                display: block;
+                width: 4px;
+                height: 4px;
+                background: #2563eb;
+                border-radius: 50%;
+                margin: 2px auto 0;
+            }
+        }
+    }
+
+    .weekly-grid {
+        padding-inline: 4px;
+    }
+}
+
+.calendar-day {
+    min-height: 110px; // más compacto
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    padding: 6px;
+    background: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    &.empty {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        cursor: default;
+    }
+
+    &.today {
+        border: 2px solid #4a76a8;
+        background-color: #f0f7ff;
+
+        .day-number {
+            color: #4a76a8;
+            font-weight: bold;
+        }
+    }
+
+    &.selected {
+        border: 2px solid $primary-blue;
+        background-color: lighten($primary-blue, 50%);
+    }
+
+    .day-number {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        text-align: right;
+    }
+
+    .day-events {
+        overflow-y: auto;
+        max-height: 80px; // ajustado al nuevo alto
+    }
+}
+
+.calendar-event {
+    font-size: 0.72rem;
+    padding: 3px 6px;
+    margin: 2px 0;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &.work {
+        background-color: #e3f2fd;
+        color: #1565c0;
+        border-left: 3px solid #1565c0;
+    }
+
+    &.appointment {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        border-left: 3px solid #2e7d32;
+
+        &.confirmada {
+            background-color: #e8f5e9;
+            border-left-color: #2e7d32;
+        }
+
+        &.pendiente {
+            background-color: #fff8e1;
+            border-left-color: #ff8f00;
+        }
+
+        &.cancelada {
+            background-color: #ffebee;
+            border-left-color: #c62828;
+        }
+    }
+
+    &.more-events {
+        background-color: #f5f5f5;
+        color: #616161;
+        font-style: italic;
+        text-align: center;
+    }
+}
+
+/* Estilos para la lista de reservas */
+.selector-fecha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .btn-outline-secondary {
+        border-color: #ddd;
+        color: #4a76a8;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
+
+    .fecha-actual {
+        margin: 0;
+        font-size: 0.95rem;
+        /* más pequeño */
+        color: #475569;
+        /* gris menos prominente */
+        font-weight: 500;
+    }
+}
+
+.reservas-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.reserva-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative; // Ensure z-index
+
+    &:hover {
+        background-color: #e9ecef;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+        z-index: 10;
+    }
+
+    &.confirmada {
+        border-left: 4px solid #2e7d32;
+    }
+
+    &.pendiente {
+        border-left: 4px solid #ff8f00;
+    }
+
+    &.cancelada {
+        border-left: 4px solid #c62828;
+    }
+
+    .reserva-hora {
+        font-weight: 600;
+        min-width: 60px;
+        color: #4a76a8;
+    }
+
+    .reserva-info {
+        flex-grow: 1;
+        margin: 0 10px;
+
+        .reserva-cliente {
+            font-weight: 500;
+        }
+
+        .reserva-servicio {
+            font-size: 0.85rem;
+            color: #666;
+        }
+    }
+
+    .reserva-estado {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        min-width: 100px;
+        text-align: center;
+
+        &.confirmada {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 3px 8px rgba(16, 185, 129, 0.35);
+        }
+
+        &.pendiente {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 3px 8px rgba(245, 158, 11, 0.35);
+        }
+
+        &.cancelada {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 3px 8px rgba(239, 68, 68, 0.35);
+        }
+    }
+}
+
+.no-reservas {
+    color: #666;
+    font-size: 1rem;
+
+    .fa-calendar-times {
+        color: #ddd;
+    }
+}
+
+/* Estilos para el modal de detalles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+}
+
+.modal-contenido {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
+}
+
+.detalles-reserva {
+    .detalle-item {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+
+        strong {
+            color: #4a76a8;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        &.notas {
+            p {
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #f8f9fa;
+                border-radius: 4px;
+            }
+        }
+    }
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    .btn-cerrar {
+        background-color: #4a76a8;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #3a5f8a;
+        }
+    }
+}
+
+.btn-back {
+    background-color: #f8f9fa;
+    color: #4a76a8;
+    border: 1px solid #4a76a8;
+
+    &:hover {
+        background-color: #e9ecef;
+    }
+}
+
+.btn-primary {
+    background-color: $primary-blue;
+    border-color: $primary-blue;
+
+    &:hover {
+        background-color: darken($primary-blue, 10%);
+        border-color: darken($primary-blue, 10%);
+    }
+}
+
+/* ==============================
+   Calendario mensual (month-grid)
+   ============================== */
+.month-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .month-grid-header {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 10px;
+        font-weight: 700;
+        color: #1B3C87;
+
+        .month-col-header {
+            text-align: center;
+            padding: 12px 8px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+            border: 2px solid #c7d2fe;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    }
+
+    .month-grid-body {
+        .month-row {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .month-col {
+            box-sizing: border-box;
+            min-height: 100px;
+            border: 2px solid #d1d5db;
+            border-radius: 12px;
+            padding: 10px;
+            background: #ffffff;
+            /* futuro sin reserva */
+            transition: all 0.25s ease;
+            cursor: pointer;
+            position: relative; // Ensure z-index works on hover
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+                z-index: 10;
+            }
+
+            &.empty {
+                background: transparent;
+                border: none;
+                cursor: default;
+
+                &:hover {
+                    transform: none;
+                    box-shadow: none;
+                }
+            }
+
+            /* Futuro con reserva: azul más marcado */
+            &.reserved:not(.past) {
+                background-color: #dbeafe;
+                /* azul 200 */
+                border-color: #bfdbfe;
+                /* azul 300 */
+                color: #0b4ea2;
+                /* azul más oscuro para texto */
+            }
+
+            /* Pasado sin reserva: gris más oscuro */
+            &.past:not(.reserved) {
+                background-color: #e5e7eb;
+                /* gris 200 */
+                color: #4b5563;
+                /* gris 600 */
+                border-color: #d1d5db;
+                /* gris 300 */
+            }
+
+            /* Pasado con reserva: gris aún más marcado */
+            &.past.reserved {
+                background-color: #d1d5db;
+                /* gris 300 */
+                color: #374151;
+                /* gris 700 */
+                border-color: #9ca3af;
+                /* gris 400 */
+            }
+
+            .month-date {
+                text-align: right;
+                font-weight: 600;
+                color: #374151;
+                margin-bottom: 4px;
+            }
+
+            .month-indicator {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: transparent;
+            }
+
+            /* Horario dentro de la celda */
+            .month-hours {
+                margin-top: 6px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                min-height: 18px;
+                /* evita salto de altura entre celdas */
+
+                .mh-time {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 0.78rem;
+                    line-height: 1;
+                    color: #0f172a;
+                    /* slate-900 */
+                    background: #f8fafc;
+                    /* slate-50 */
+                    border: 1px solid #e2e8f0;
+                    /* slate-200 */
+                    border-radius: 999px;
+                    padding: 3px 8px;
+
+                    i {
+                        color: #64748b;
+                        /* slate-500 */
+                        font-size: 0.85rem;
+                    }
+                }
+
+                .mh-rest {
+                    font-size: 0.76rem;
+                    color: #6b7280;
+                    /* gris medio */
+                }
+            }
+
+            &.reserved:not(.past) .month-indicator {
+                background: #1a73e8;
+                /* punto azul */
+            }
+
+            &.past.reserved .month-indicator {
+                background: #6b7280;
+                /* punto gris oscuro */
+            }
+
+            /* Work Day Styling - Strong Green highlight */
+            &.work-day {
+                background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+                border: 3px solid #10b981;
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25), inset 0 0 0 2px rgba(16, 185, 129, 0.1);
+
+                .month-date {
+                    color: #047857;
+                    font-weight: 700;
+                    font-size: 1rem;
+                }
+
+                &:hover {
+                    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+                    transform: translateY(-4px);
+                }
+            }
+
+            /* Rest Day Styling - Orange Highlight (Requested) */
+            &.rest-day {
+                background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); // Orange-50 to Orange-100
+                border: 2px solid #ea580c; // Orange-600 (Darker as requested)
+                box-shadow: 0 4px 12px rgba(234, 88, 12, 0.15); // Orange shadow
+
+                .month-date {
+                    color: #9a3412; // Orange-800
+                    font-weight: 700;
+                }
+
+                &:hover {
+                    border-color: #c2410c; // Orange-700
+                    box-shadow: 0 8px 20px rgba(234, 88, 12, 0.25);
+                }
+            }
+
+            /* Day Type Badges */
+            .day-type-badge {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.65rem;
+
+                i {
+                    font-size: 0.6rem;
+                }
+            }
+
+            .work-badge {
+                background: #10b981;
+                color: white;
+                box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+            }
+
+            .rest-badge {
+                background: #f59e0b;
+                color: white;
+                box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+            }
+
+            /* Reservation Count Badge */
+            .reserva-count-badge {
+                position: absolute;
+                bottom: 6px;
+                right: 6px;
+                min-width: 24px;
+                height: 24px;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                color: white;
+                font-size: 0.75rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 6px;
+                box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
+            }
+
+            /* Make month-col position relative for badges */
+            position: relative;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .month-grid-header {
+            gap: 8px;
+        }
+
+        .month-grid-body .month-row {
+            gap: 8px;
+        }
+
+        .month-grid-body .month-col {
+            min-height: 90px;
+            padding: 8px;
+        }
+    }
+}
+
+/* ==============================
+   Grilla semanal de horarios
+   ============================== */
+.weekly-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    /* separación mayor entre bloques */
+    padding-inline: 48px; // gutter más amplio
+    /* Evitar saltos de ancho cuando aparezca scrollbar */
+    scrollbar-gutter: stable both-edges;
+    /* Evitar saltos de ancho cuando aparezca scrollbar */
+    scrollbar-gutter: stable both-edges;
+
+    .weekly-grid-header {
+        display: grid;
+        /* Tracks idénticos y estables */
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 22px;
+        padding-inline: 0; // usar solo el gutter del contenedor
+        font-weight: 600;
+        color: #4a76a8;
+
+        .weekly-col-header {
+            /* Alinear visualmente con columnas del cuerpo */
+            text-align: center;
+            padding: 28px;
+            /* igual a .weekly-col */
+            border: 1px solid #eaeaea;
+            /* igual a .weekly-col */
+            border-radius: 8px;
+            /* igual a .weekly-col */
+            background: #f8fafc;
+        }
+
+        /* Guías de columna: alternar fondos sutiles en encabezados */
+        .weekly-col-header:nth-child(odd) {
+            background: #f5f8ff;
+        }
+
+        .weekly-col-header:nth-child(even) {
+            background: #fbfdff;
+        }
+    }
+
+    .weekly-grid-body {
+        padding-inline: 0; // usar solo el gutter del contenedor
+
+        .weekly-row {
+            display: grid;
+            /* Tracks idénticos y estables */
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .weekly-col {
+            box-sizing: border-box;
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 32px;
+            /* más relleno interno */
+            min-height: 360px;
+            /* mucho más alto para evitar sensación de ajuste */
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            /* clickable */
+            transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+
+            &.selected {
+                border-color: #4a76a8;
+                box-shadow: 0 0 0 2px rgba(74, 118, 168, 0.12);
+                background-color: #f7fbff;
+            }
+
+            .weekly-date {
+                text-align: right;
+                font-size: 0.85rem;
+                /* un poco más grande */
+                opacity: 0.85;
+                margin-bottom: 8px;
+            }
+
+            .weekly-event.work {
+                background-color: #e3f2fd;
+                border-left: 4px solid #1565c0;
+                color: #0d47a1;
+                padding: 14px 16px;
+                border-radius: 6px;
+
+                .event-title {
+                    margin-bottom: 12px;
+                    font-weight: 700;
+                    color: #0b4ea2;
+                    font-size: 1.1rem;
+                }
+
+                .time-chips {
+                    gap: 16px;
+                }
+
+                .time-chips .chip {
+                    font-size: 1.1rem;
+                    /* texto de chips más legible */
+                    padding: 12px 16px;
+                    border-radius: 999px;
+                    border: 1px solid rgba(13, 71, 161, .15);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+                    font-variant-numeric: tabular-nums;
+                    letter-spacing: .2px;
+                    white-space: nowrap;
+
+                    i {
+                        font-size: 0.9rem;
+                        margin-right: 6px;
+                    }
+                }
+
+                .time-chips .chip.ingreso {
+                    background-color: #d1fae5;
+                    /* verde claro */
+                    color: #065f46;
+                    /* verde oscuro */
+                    border-color: rgba(6, 95, 70, .2);
+                }
+
+                .time-chips .chip.salida {
+                    background-color: #fff8e1;
+                    /* ámbar claro */
+                    color: #92400e;
+                    /* ámbar oscuro */
+                    border-color: rgba(146, 64, 14, .2);
+                }
+            }
+
+            .weekly-empty {
+                background-color: #f9fafb;
+                border: 1px dashed #e0e0e0;
+                border-radius: 6px;
+                padding: 10px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+
+            // Reveal de chips de tiempo estilo acordeón
+            .time-chips {
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                transform: translateY(-6px);
+                transition: max-height .25s ease, opacity .25s ease, transform .25s ease;
+            }
+
+            &:hover .time-chips,
+            &.selected .time-chips,
+            &:focus-within .time-chips {
+                max-height: 220px;
+                /* permite más contenido sin cortar */
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            &:hover {
+                background: #f8fbff;
+                border-color: #dbeafe;
+                box-shadow: 0 6px 18px rgba(30, 58, 138, .08);
+            }
+
+            // Estado de días pasados: atenuados y no interactivos
+            &.past {
+                opacity: .6;
+                filter: grayscale(0.2);
+                cursor: not-allowed;
+            }
+
+            &.past:hover {
+                background: #ffffff;
+                border-color: #eaeaea;
+                box-shadow: none;
+            }
+        }
+
+        /* Guías de columna: alternar fondos sutiles en columnas del cuerpo
+           Mantener contraste con hover y selected */
+        .weekly-row>.weekly-col:nth-child(odd) {
+            background: #fbfdff;
+        }
+
+        .weekly-row>.weekly-col:nth-child(even) {
+            background: #ffffff;
+        }
+
+        /* Guía sutil de alineación por columna (borde izquierdo) */
+        .weekly-row>.weekly-col:not(:first-child) {
+            border-left: 2px solid rgba(0, 0, 0, .03);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .weekly-grid-header {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .weekly-grid-body .weekly-row {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .weekly-grid-header {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .weekly-grid-body .weekly-row {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 576px) {
+        padding-inline: 16px; // gutter un poco mayor en móvil para aire
+
+        .weekly-grid-header {
+            padding-inline: 0;
+        }
+
+        .weekly-grid-body {
+            padding-inline: 0;
+        }
+
+        .weekly-grid-header,
+        .weekly-grid-body .weekly-row {
+            gap: 16px;
+        }
+
+        .weekly-col {
+            padding: 26px;
+            min-height: 260px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .weekly-grid-header {
+            grid-template-columns: 1fr;
+        }
+
+        .weekly-grid-body .weekly-row {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+/* Chips de tiempo (ingreso/salida) reutilizables */
+.time-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: 12px;
+        background-color: #f1f5f9;
+        color: #334155;
+
+        &.ingreso {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        &.salida {
+            background-color: #fff8e1;
+            color: #ff8f00;
+        }
+    }
+}

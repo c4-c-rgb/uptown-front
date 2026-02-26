@@ -1,0 +1,337 @@
+@import '../../styles/variables.scss';
+
+// Variables
+// Variables inherited from variables.scss
+$footer-height: 80px;
+$footer-height: 80px;
+
+// Animations
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-shape {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(5px, 5px) rotate(3deg);
+  }
+
+  50% {
+    transform: translate(0, 10px) rotate(0deg);
+  }
+
+  75% {
+    transform: translate(-5px, 5px) rotate(-3deg);
+  }
+}
+
+.footerAdmin {
+  position: relative;
+  width: 100%;
+  min-height: $footer-height;
+  background: $primary-blue;
+  backdrop-filter: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  z-index: 100;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  }
+
+  .footer-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+
+    .floating-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+
+      .floating-shape {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        width: var(--size);
+        height: var(--size);
+        left: var(--x);
+        top: var(--y);
+        animation: float-shape var(--duration) infinite ease-in-out var(--delay);
+        backdrop-filter: blur(1px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    margin: 0 auto;
+    padding: 1rem 1.5rem; // Padding compacto pero equilibrado
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    .footer-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem; // Ultra reduced gap (was 0.5rem)
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0; // Removed margin (was 0.25rem)
+
+        .logo-icon {
+          width: 30px;
+          height: 30px;
+          border-radius: 8px;
+          background: linear-gradient(135deg, rgba(26, 115, 232, 0.3), rgba(229, 57, 53, 0.3));
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          font-size: 1rem;
+          animation: float 4s ease-in-out infinite;
+        }
+
+        .logo-text {
+          font-size: 1.25rem;
+          font-weight: 700;
+          background: linear-gradient(135deg, #fff, #e0e0e0);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin: 0; // Removed margin (was 0.25rem)
+
+        a {
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, $primary-blue, $primary-red);
+            transition: width 0.3s ease;
+          }
+
+          &:hover {
+            color: white;
+
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .copyright {
+        font-size: 0.75rem; // Slightly smaller font
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 0; // Removed margin (was 0.25rem)
+
+        .highlight {
+          color: white;
+          font-weight: 500;
+        }
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0; // Removed margin (was 0.25rem)
+
+        a {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 1.1rem;
+          transition: all 0.3s ease;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(5px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+
+          &:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 992px) {
+    .footer-container {
+      padding: 1.25rem 1.5rem;
+
+      .footer-content {
+        .footer-links {
+          gap: 1.25rem;
+
+          a {
+            font-size: 0.85rem;
+          }
+        }
+
+        .copyright {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    min-height: auto;
+
+    .footer-container {
+      padding: 1rem 1.25rem;
+
+      .footer-content {
+        .footer-logo {
+          .logo-icon {
+            width: 26px;
+            height: 26px;
+            font-size: 0.9rem;
+          }
+
+          .logo-text {
+            font-size: 1.1rem;
+          }
+        }
+
+        .footer-links {
+          gap: 1rem;
+          flex-wrap: wrap;
+
+          a {
+            font-size: 0.8rem;
+          }
+        }
+
+        .copyright {
+          font-size: 0.75rem;
+          line-height: 1.4;
+        }
+
+        .social-links {
+          gap: 1rem;
+          margin-top: 0.75rem;
+
+          a {
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-container {
+      padding: 0.75rem 1rem;
+
+      .footer-content {
+        .footer-logo {
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-bottom: 0.25rem;
+
+          .logo-icon {
+            width: 24px;
+            height: 24px;
+            font-size: 0.8rem;
+          }
+
+          .logo-text {
+            font-size: 1rem;
+          }
+        }
+
+        .footer-links {
+          gap: 0.75rem 1rem;
+          margin: 0.25rem 0;
+
+          a {
+            font-size: 0.75rem;
+          }
+        }
+
+        .copyright {
+          font-size: 0.7rem;
+          margin-top: 0.25rem;
+        }
+
+        .social-links {
+          gap: 0.75rem;
+          margin-top: 0.5rem;
+
+          a {
+            width: 30px;
+            height: 30px;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,335 @@
+@import '../../../styles/variables.scss';
+
+.dashboard-perfil-cliente {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-top: 1.5rem; // Reduced to raise container per user request
+
+    .perfil-content {
+        flex: 1;
+        padding: 0;
+    }
+
+    // Header Bar matching Employee/Admin for centering
+    .header-bar {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem; // Reduced from 2rem
+        padding: 0 15px;
+
+        .profile-title {
+            grid-column: 2;
+            margin: 0;
+            color: $primary-blue; // User requested Blue
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1rem; // Tighten title to header
+        }
+
+        .back-to-dashboard-emp {
+            grid-column: 3;
+            justify-self: end; // Align to right
+
+            // Button Styles duplicated here for context specific override if needed
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: $primary-blue;
+            color: white;
+            border: 1px solid $primary-blue;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: darken($primary-blue, 10%);
+                color: white;
+                border-color: darken($primary-blue, 10%);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba($primary-blue, 0.2);
+            }
+
+            svg {
+                transition: transform 0.2s ease;
+            }
+
+            &:hover svg {
+                transform: translateX(-2px);
+            }
+        }
+    }
+
+    // Standardized Buttons matching Employee
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+
+        &-edit {
+            background-color: $primary-blue !important;
+            color: white !important;
+
+            &:hover {
+                background-color: darken($primary-blue, 10%) !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba($primary-blue, 0.2);
+            }
+        }
+
+        &-save {
+            background-color: $primary-blue !important; // User requested Blue instead of Green
+            color: white !important;
+            margin-right: 0.5rem;
+
+            &:hover {
+                background-color: darken($primary-blue, 10%) !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba($primary-blue, 0.2);
+            }
+        }
+
+        &-cancel {
+            background-color: $primary-red !important;
+            color: white !important;
+
+            &:hover {
+                background-color: darken($primary-red, 10%) !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba($primary-red, 0.2);
+            }
+        }
+
+        &-upload {
+            background-color: $primary-blue !important;
+            color: white !important;
+            width: 100%;
+            margin-top: 1rem;
+
+            &:hover {
+                background-color: darken($primary-blue, 10%) !important;
+            }
+        }
+    }
+
+}
+
+.profile-card-wide {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    // overflow: hidden; // Commented out to allow hover shadow visibility
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(187, 11, 11, 0.3) !important;
+        z-index: 10;
+        position: relative;
+    }
+
+    .profile-content-wide {
+        width: 100%;
+    }
+
+    .profile-summary {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+
+        @media (min-width: 768px) {
+            flex-direction: row;
+            text-align: left;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .avatar-lg {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, $primary-blue, darken($primary-blue, 20%));
+            color: white !important;
+            font-size: 3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 20px rgba($primary-blue, 0.2);
+
+            @media (min-width: 768px) {
+                margin-bottom: 0;
+            }
+        }
+
+        .summary-main {
+            .summary-name {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #111827;
+                margin-bottom: 0.5rem;
+            }
+
+            .chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+
+                @media (min-width: 768px) {
+                    justify-content: flex-start;
+                }
+
+                .chip {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.4rem 1rem;
+                    background: #f3f4f6;
+                    border-radius: 999px;
+                    font-size: 0.9rem;
+                    color: #4b5563;
+
+                    i {
+                        color: $primary-blue;
+                    }
+                }
+            }
+        }
+    }
+
+    .section-title-wide {
+        margin-bottom: 1.5rem;
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .divider-wide {
+            height: 3px;
+            width: 50px;
+            background: $primary-blue;
+            border-radius: 2px;
+        }
+    }
+
+    .info-field-wide {
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: $color-text-muted;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border: 2px solid $color-border;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.2s;
+
+            &:focus {
+                border-color: $primary-blue;
+                box-shadow: 0 0 0 4px rgba($primary-blue, 0.1);
+            }
+        }
+    }
+}
+
+// Mobile responsive for grid
+@media (max-width: 768px) {
+    .dashboard-perfil-cliente {
+        background: #ffffff !important;
+        padding-top: 6rem !important; // Increased to 6rem to definitely clear header & show button
+
+        .profile-section {
+            padding: 0 !important;
+        }
+
+        .container-fluid {
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+        }
+
+        .profile-card-wide {
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            padding: 1rem !important;
+            width: 100% !important;
+            padding-top: 0.5rem !important; // Reduce top padding of card to stick to header
+        }
+
+        .header-bar {
+            display: flex !important; // Use flex for side-by-side
+            flex-direction: row; // Ensure row direction
+            align-items: center;
+            justify-content: flex-start; // Align to left/start
+            gap: 1rem;
+            margin-bottom: 0 !important; // Remove gap to stick to card
+            padding: 0 1rem;
+
+            .back-to-dashboard-emp {
+                margin: 0;
+                padding: 0.5rem;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+                border: none;
+                background: transparent; // Clean look
+                color: $primary-blue;
+                box-shadow: none;
+
+                span {
+                    display: none; // Hide "Volver" text
+                }
+
+                svg {
+                    transform: scale(1.5); // Make arrow bigger
+                }
+
+                &:hover {
+                    background: rgba($primary-blue, 0.1);
+                    transform: none;
+                    box-shadow: none;
+                }
+            }
+
+            .profile-title {
+                margin: 0;
+                font-size: 1.5rem;
+                text-align: left;
+            }
+
+            .hb-spacer {
+                display: none; // Remove spacer in mobile
+            }
+        }
+    }
+}
