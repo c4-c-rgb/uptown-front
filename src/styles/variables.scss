@@ -1,0 +1,111 @@
+// UptownHair Design System Variables
+
+// ESTRICTO: Paleta de Colores Principal
+// Usar SIEMPRE estas variables para mantener la consistencia.
+$primary-blue: #1B3C87; // Azul Real Profundo (Logo)
+$primary-red: #E63946; // Rojo Vibrante (Barber Pole)
+$primary-white: #FFFFFF; // Blanco Puro
+
+// Variantes de Color (Derivadas o Complementarias)
+$blue-dark: #0D2456; // Azul Marino Oscuro (para contrastes/fondos oscuros)
+$blue-light: #4F74C9; // Azul Claro (para hovers/acentos)
+$red-dark: #B92B34; // Rojo Oscuro (para estados activos/bordes)
+$red-light: #FF6B6B; // Rojo Claro (para alertas suaves/acentos)
+
+// Colores Neutros
+$neutral-black: #111827; // Negro casi puro para texto principal
+$neutral-dark: #1F2937; // Gris muy oscuro
+$neutral-medium: #6B7280; // Gris medio
+$neutral-light: #F3F4F6; // Gris muy claro (fondos secundarios)
+$neutral-white: $primary-white;
+
+// Alias Semánticos (Usar estos preferiblemente en el código)
+$color-brand-primary: $primary-blue;
+$color-brand-secondary: $primary-red;
+$color-background-main: $primary-white;
+$color-background-alt: $neutral-light;
+$color-text-primary: $neutral-black;
+$color-text-secondary: $neutral-dark;
+$color-text-muted: $neutral-medium;
+$color-border: #E5E7EB;
+
+// Compatibility Aliases (Restored to fix build errors)
+$text-primary: $neutral-black;
+$text-secondary: $neutral-medium;
+$secondary-light-blue: $blue-light;
+$accent-light-red: $red-light;
+$secondary-gray: $neutral-light;
+$menu-text: #E5E7EB; // Added for safety if used in headers/menus
+$footer-bg: $blue-dark;
+$nav-link: $primary-white;
+
+// Estados
+$success: #10B981;
+$warning: #F59E0B;
+$error: $primary-red; // Usar el rojo de marca para errores también, para consistencia
+$info: $primary-blue;
+
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$shadow-glow-blue: 0 0 15px rgba($primary-blue, 0.3);
+$shadow-glow-red: 0 0 15px rgba($primary-red, 0.3);
+
+// Typography
+$font-family-primary: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-family-secondary: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+// Font Sizes / Weights / Spacing / Radius (Manteniendo los existentes que funcionaban bien)
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.25;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+$spacing-1: 0.25rem;
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-5: 1.25rem;
+$spacing-6: 1.5rem;
+$spacing-8: 2rem;
+$spacing-10: 2.5rem;
+$spacing-12: 3rem;
+$spacing-16: 4rem;
+
+$border-radius-sm: 0.125rem;
+$border-radius-md: 0.375rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 0.75rem;
+$border-radius-full: 9999px;
+
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+
+$transition-speed-fast: 150ms;
+$transition-speed-normal: 300ms;
+$transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
